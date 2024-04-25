@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@mui/icons-material": "^5.15.11",
+    "cookie-parser": "^1.4.6",
+    "jsonwebtoken": "^9.0.2"
+  }
+}

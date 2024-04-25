@@ -1,0 +1,40 @@
+.main-stays-search-page {
+    padding-top: 3%;
+    padding-left: 18%;
+    padding-right: 18%;
+}
+
+.map-container{
+    min-width: 200px;
+    min-height: 150px;
+    background-image: url("../images2/LocalMap.png");
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5%;
+    border: 1px solid black;
+}
+
+.map-pin{
+    width: 30px;
+    height: 30px;
+}
+
+.spaced-column{
+    margin-right: 20px;
+}
+
+.my-card-body{
+    margin-right: 20px;
+}
+
+.my-card-text{
+    font-size: small;
+}
+
+.my-card-image{
+    border-radius: 5%;
+    border: 1px solid black;
+    height: 200px;
+    width: 250px;
+}

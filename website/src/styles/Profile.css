@@ -1,0 +1,10 @@
+.main-profile {
+    padding-left: 18%;
+    padding-right: 18%;
+}
+
+.column-3-style{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}

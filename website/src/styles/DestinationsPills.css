@@ -1,0 +1,20 @@
+.tab-active {
+    color: black;
+}
+
+.nav-pills .nav-link.active {
+    background-color: green !important;
+    color: white !important;
+}
+
+.roww{
+    margin-top: 0px;
+}
+
+.bodyy{
+    font-size: small;
+}
+
+.cardd{
+    border: none;
+}

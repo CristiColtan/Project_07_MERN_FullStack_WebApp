@@ -1,0 +1,38 @@
+.button{
+    width:50%;
+}
+
+.text{
+    margin-left: 35%;
+    text-align: end;
+}
+
+.price{
+    font-weight: 600;
+    
+}
+
+.reviews{
+    font-size: small;
+    font-style: italic;
+}
+
+.grade{
+    font-size: small;
+    font-style: oblique;
+}
+
+.circle {
+    width: 23px;
+    height: 23px;
+    line-height: 23px;
+    border-radius: 30%;
+    font-size: 17px;
+    color: #fff;
+    text-align: center;
+    background: #099000
+}
+
+.green_bg{
+    background-color: #099000;
+}
