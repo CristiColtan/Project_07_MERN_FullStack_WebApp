@@ -23,6 +23,7 @@ import ProfilePage from "./pages/Profile";
 import PrivateRoute from "./components/PrivateRoute";
 import CreateListing from "./pages/CreateListing";
 import MyListings from "./pages/MyListings";
+import EditListing from "./pages/EditListing";
 
 function App() {
   return (
@@ -50,6 +51,7 @@ function App() {
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/create-listing" element={<CreateListing />} />
             <Route path="/my-listings" element={<MyListings />} />
+            <Route path="/edit-listing/:listingID" element={<EditListing />} />
           </Route>
         </Routes>
       </BrowserRouter>

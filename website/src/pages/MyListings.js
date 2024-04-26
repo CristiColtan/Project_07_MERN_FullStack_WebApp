@@ -94,7 +94,9 @@ export default function MyListings() {
                   </div>
                   <div className="my-cta-section">
                     <div>
-                      <Button>Edit</Button>
+                      <Link to={`/edit-listing/${listing._id}`}>
+                        <Button>Edit</Button>
+                      </Link>
                     </div>
                     <Button
                       onClick={() => handleDeleteListing(listing._id)}
