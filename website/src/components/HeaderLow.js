@@ -22,28 +22,12 @@ function HeaderLow() {
         <div className="d-flex nav">
           <Navbar className="bg-body-tertiary navbars rounded-pill">
             <Container>
-              <Navbar.Brand href="/">
-                {/*<img
-                  alt=""
-                  src={Bed}
-                  width="30"
-                  height="30"
-                  className="d-inline-block align-top"
-  />{" "}*/}
-                {<FaHome />} Stays
-              </Navbar.Brand>
+              <Navbar.Brand href="/">{<FaHome />} Stays</Navbar.Brand>
             </Container>
           </Navbar>
           <Navbar className="bg-body-tertiary navbars rounded-pill">
             <Container className="d-flex justify-content-between w-100">
               <Navbar.Brand href="#home" className="mr-auto">
-                {/*<img
-                  alt=""
-                  src={Plane}
-                  width="30"
-                  height="30"
-                  className="d-inline-block align-top"
-/>{" "}*/}
                 {<FaPlane />} Flights
               </Navbar.Brand>
             </Container>

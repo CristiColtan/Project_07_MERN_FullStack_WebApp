@@ -29,8 +29,8 @@ import Listing from "./pages/Listing";
 function App() {
   return (
     <div className="app">
-      <Header />
       <BrowserRouter>
+        <Header />
         <Routes>
           <Route
             path="/"
