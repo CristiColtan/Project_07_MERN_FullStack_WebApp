@@ -65,3 +65,48 @@ export const getListing = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getListings = async (req, res, next) => {
+  try {
+    const limit = parseInt(req.query.limit) || 9;
+    const startIndex = parseInt(req.query.startIndex) || 0;
+
+    let wifi = req.query.wifi;
+    if (wifi === undefined || wifi === "false") {
+      wifi = { $in: [false, true] };
+    }
+
+    let parking = req.query.parking;
+    if (parking === undefined || parking === "false") {
+      parking = { $in: [false, true] };
+    }
+
+    let pool = req.query.pool;
+    if (pool === undefined || pool === "false") {
+      pool = { $in: [false, true] };
+    }
+
+    let mark = req.query.mark;
+    if (mark === undefined || mark === "all") {
+      mark = { $in: ["Excellent", "Wonderful"] };
+    }
+
+    const searchTerm = req.query.searchTerm || "";
+    const sort = req.query.sort || "createdAt";
+    const order = req.query.order || "desc";
+
+    const listings = await Listing.find({
+      name: { $regex: searchTerm, $options: "i" },
+      parking,
+      wifi,
+      pool,
+    })
+      .sort({ [sort]: order })
+      .limit(limit)
+      .skip(startIndex);
+
+    return res.status(200).json(listings);
+  } catch (error) {
+    next(error);
+  }
+};
