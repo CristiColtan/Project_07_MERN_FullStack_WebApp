@@ -1,0 +1,59 @@
+.main-my-listing{
+    padding-left: 18%;
+    padding-right: 18%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+}
+
+.map-container {
+    min-width: 200px;
+    min-height: 150px;
+    background-image: url("../images2/LocalMap.png");
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5%;
+    border: 1px solid black;
+}
+
+.map-pin {
+    width: 30px;
+    height: 30px;
+}
+
+.spaced-column {
+    margin-right: 20px;
+}
+
+.loading-p{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+}
+
+.error-p{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    color: red
+}
+
+.book-btn{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.my-rating{
+    width: 23px;
+    height: 23px;
+    line-height: 23px;
+    border-radius: 30%;
+    font-size: 17px;
+    color: #fff;
+    text-align: center;
+    background: #099000
+}

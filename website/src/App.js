@@ -24,6 +24,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import CreateListing from "./pages/CreateListing";
 import MyListings from "./pages/MyListings";
 import EditListing from "./pages/EditListing";
+import Listing from "./pages/Listing";
 
 function App() {
   return (
@@ -47,6 +48,7 @@ function App() {
           <Route path="/property" element={<Property />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/stays-search" element={<StaysSearch />} />
+          <Route path="/listing/:listingID" element={<Listing />} />
           <Route element={<PrivateRoute />}>
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/create-listing" element={<CreateListing />} />
