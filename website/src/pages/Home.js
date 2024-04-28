@@ -58,11 +58,7 @@ function Home() {
           </Col>
 
           <Col xs="auto">
-            <Button
-              href="/stays-search"
-              type="submit"
-              className="mb-2 button_search"
-            >
+            <Button href="/search" type="submit" className="mb-2 button_search">
               Search
             </Button>
           </Col>

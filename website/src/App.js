@@ -47,7 +47,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/property" element={<Property />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/stays-search" element={<StaysSearch />} />
+          <Route path="/search" element={<StaysSearch />} />
           <Route path="/listing/:listingID" element={<Listing />} />
           <Route element={<PrivateRoute />}>
             <Route path="/profile" element={<ProfilePage />} />

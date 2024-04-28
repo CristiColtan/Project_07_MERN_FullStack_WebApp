@@ -91,6 +91,11 @@ export const getListings = async (req, res, next) => {
       mark = { $in: ["Excellent", "Wonderful"] };
     }
 
+    let location = req.query.location;
+    if (location === undefined || location === "all-l") {
+      location = { $in: ["Bucharest", "Sibiu", "Brasov"] };
+    }
+
     const searchTerm = req.query.searchTerm || "";
     const sort = req.query.sort || "createdAt";
     const order = req.query.order || "desc";
@@ -100,6 +105,7 @@ export const getListings = async (req, res, next) => {
       parking,
       wifi,
       pool,
+      mark,
     })
       .sort({ [sort]: order })
       .limit(limit)
