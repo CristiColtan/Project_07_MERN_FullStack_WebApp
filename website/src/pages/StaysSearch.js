@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -10,9 +10,138 @@ import { FaMapMarkerAlt } from "react-icons/fa";
 
 import WorldMap from "../images2/WorldMap.png";
 
+import { useNavigate } from "react-router-dom";
+
 import "../styles/StaysSearch.css";
 
 function StaysSearch() {
+  const navigate = useNavigate();
+
+  const [sideBarData, setSideBarData] = useState({
+    searchTerm: "",
+    mark: "all",
+    pool: false,
+    parking: false,
+    wifi: false,
+    location: "all-l",
+    sort: "created_at",
+    order: "desc",
+  });
+
+  const [loading, setLoading] = useState(false);
+  const [listings, setListings] = useState([]);
+
+  console.log(sideBarData);
+  console.log(listings);
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+
+    const searchTermFromURL = urlParams.get("searchTerm");
+    const markFromURL = urlParams.get("mark");
+    const locationFromURL = urlParams.get("location");
+    const parkingFromURL = urlParams.get("parking");
+    const poolFromURL = urlParams.get("pool");
+    const wifiFromURL = urlParams.get("wifi");
+    const sortFromURL = urlParams.get("sort");
+    const orderFromURL = urlParams.get("order");
+
+    if (
+      searchTermFromURL ||
+      markFromURL ||
+      locationFromURL ||
+      parkingFromURL ||
+      poolFromURL ||
+      wifiFromURL ||
+      sortFromURL ||
+      orderFromURL
+    ) {
+      setSideBarData({
+        searchTerm: searchTermFromURL || "",
+        mark: markFromURL || "all",
+        location: locationFromURL || "all-l",
+        parking: parkingFromURL === "true" ? true : false,
+        pool: poolFromURL === "true" ? true : false,
+        wifi: wifiFromURL === "true" ? true : false,
+        sort: sortFromURL || "created_at",
+        order: orderFromURL || "desc",
+      });
+    }
+
+    const fetchListings = async () => {
+      setLoading(true);
+
+      const searchQuery = urlParams.toString();
+      const res = await fetch(
+        `http://localhost:8081/backend/listing/get?${searchQuery}`
+      );
+
+      const data = await res.json();
+      setListings(data);
+      setLoading(false);
+    };
+
+    fetchListings();
+  }, [window.location.search]);
+
+  const handleChange = (e) => {
+    if (
+      e.target.id === "all" ||
+      e.target.id === "Excellent" ||
+      e.target.id === "Wonderful"
+    ) {
+      setSideBarData({ ...sideBarData, mark: e.target.id });
+    }
+
+    if (
+      e.target.id === "all-l" ||
+      e.target.id === "Bucharest" ||
+      e.target.id === "Brasov" ||
+      e.target.id === "Sibiu"
+    ) {
+      setSideBarData({ ...sideBarData, location: e.target.id });
+    }
+    if (e.target.id === "searchTerm") {
+      setSideBarData({ ...sideBarData, searchTerm: e.target.value });
+    }
+
+    if (
+      e.target.id === "parking" ||
+      e.target.id === "pool" ||
+      e.target.id === "wifi"
+    ) {
+      setSideBarData({
+        ...sideBarData,
+        [e.target.id]:
+          e.target.checked || e.target.checked === "true" ? true : false,
+      });
+    }
+
+    if (e.target.id === "sort_order") {
+      const sort = e.target.value.split("_")[0] || "created_at";
+      const order = e.target.value.split("_")[1] || "desc";
+
+      setSideBarData({ ...sideBarData, sort, order });
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const urlParams = new URLSearchParams();
+    urlParams.set("searchTerm", sideBarData.searchTerm);
+    urlParams.set("mark", sideBarData.mark);
+    urlParams.set("location", sideBarData.location);
+    urlParams.set("parking", sideBarData.parking);
+    urlParams.set("pool", sideBarData.pool);
+    urlParams.set("wifi", sideBarData.wifi);
+    urlParams.set("sort", sideBarData.sort);
+    urlParams.set("order", sideBarData.order);
+
+    const searchQuery = urlParams.toString();
+    navigate(`/search?${searchQuery}`);
+  };
+
   return (
     <div className="main-stays-search-page">
       <div>
@@ -23,7 +152,7 @@ function StaysSearch() {
               <Button>Show on map</Button>
             </div>
             <br></br>
-            <Form>
+            <Form onSubmit={handleSubmit}>
               <Form.Group className="mb-3" controlId="searchTerm">
                 <Form.Label style={{ fontSize: "larger" }}>
                   Search Terms:
@@ -31,6 +160,8 @@ function StaysSearch() {
                 <Form.Control
                   type="text"
                   placeholder="Search..."
+                  value={sideBarData.searchTerm}
+                  onChange={handleChange}
                 ></Form.Control>
               </Form.Group>
               <Form.Group>
@@ -44,20 +175,26 @@ function StaysSearch() {
                   name="all"
                   type="checkbox"
                   id="all"
+                  onChange={handleChange}
+                  checked={sideBarData.mark === "all"}
                 ></Form.Check>
                 <Form.Check
                   inline
                   label="Excellent"
-                  name="exc"
+                  name="Excellent"
                   type="checkbox"
-                  id="exc"
+                  id="Excellent"
+                  onChange={handleChange}
+                  checked={sideBarData.mark === "Excellent"}
                 ></Form.Check>
                 <Form.Check
                   inline
                   label="Wonderful"
-                  name="won"
+                  name="Wonderful"
                   type="checkbox"
-                  id="won"
+                  id="Wonderful"
+                  onChange={handleChange}
+                  checked={sideBarData.mark === "Wonderful"}
                 ></Form.Check>
               </Form.Group>
               <br></br>
@@ -72,6 +209,8 @@ function StaysSearch() {
                   name="pool"
                   type="checkbox"
                   id="pool"
+                  onChange={handleChange}
+                  checked={sideBarData.pool}
                 ></Form.Check>
                 <Form.Check
                   inline
@@ -79,6 +218,8 @@ function StaysSearch() {
                   name="parking"
                   type="checkbox"
                   id="parking"
+                  onChange={handleChange}
+                  checked={sideBarData.parking}
                 ></Form.Check>
                 <Form.Check
                   inline
@@ -86,6 +227,8 @@ function StaysSearch() {
                   name="wifi"
                   type="checkbox"
                   id="wifi"
+                  onChange={handleChange}
+                  checked={sideBarData.wifi}
                 ></Form.Check>
               </Form.Group>
               <br></br>
@@ -94,39 +237,60 @@ function StaysSearch() {
                 <br></br>
                 <Form.Check
                   inline
-                  label="Bucharest"
-                  name="buc"
+                  label="Any"
+                  name="all-l"
                   type="checkbox"
-                  id="buc"
+                  id="all-l"
+                  onChange={handleChange}
+                  checked={sideBarData.location === "all-l"}
+                ></Form.Check>
+                <Form.Check
+                  inline
+                  label="Bucharest"
+                  name="Bucharest"
+                  type="checkbox"
+                  id="Bucharest"
+                  onChange={handleChange}
+                  checked={sideBarData.location === "Bucharest"}
                 ></Form.Check>
                 <Form.Check
                   inline
                   label="Sibiu"
-                  name="sib"
+                  name="Sibiu"
                   type="checkbox"
-                  id="sib"
+                  id="Sibiu"
+                  onChange={handleChange}
+                  checked={sideBarData.location === "Sibiu"}
                 ></Form.Check>
                 <Form.Check
                   inline
                   label="Brasov"
-                  name="bra"
+                  name="Brasov"
                   type="checkbox"
-                  id="bra"
+                  id="Brasov"
+                  onChange={handleChange}
+                  checked={sideBarData.location === "Brasov"}
                 ></Form.Check>
               </Form.Group>
               <br></br>
               <Form.Group>
                 <Form.Label>Sort:</Form.Label>
                 <br></br>
-                <Form.Select id="sort_order">
-                  <option>Price high to low</option>
-                  <option>Price low to high</option>
-                  <option>Latest</option>
-                  <option>Oldest</option>
+                <Form.Select
+                  id="sort_order"
+                  onChange={handleChange}
+                  defaultValue={"created_at_desc"}
+                >
+                  <option value="price_desc">Price high to low</option>
+                  <option value="price_asc">Price low to high</option>
+                  <option value="createdAt_desc">Latest</option>
+                  <option value="createdAt_asc">Oldest</option>
                 </Form.Select>
               </Form.Group>
               <br></br>
-              <Button style={{ allignSelf: "center" }}>Filter</Button>
+              <Button style={{ allignSelf: "center" }} type="submit">
+                Filter
+              </Button>
             </Form>
           </Col>
           <Col>

@@ -93,14 +93,6 @@ function Header() {
                     >
                       <NavDropdown.Item href="#ron">RON</NavDropdown.Item>
                     </NavDropdown>
-
-                    {/*<Form.Select
-                      className="w-auto"
-                      aria-label="Default select example"
-                    >
-                      <option>Currency</option>
-                      <option value="1">RON</option>
-        </Form.Select>*/}
                   </Nav>
                   <Form className="d-flex">
                     <Button

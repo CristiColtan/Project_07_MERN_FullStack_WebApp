@@ -106,6 +106,7 @@ export const getListings = async (req, res, next) => {
       wifi,
       pool,
       mark,
+      location,
     })
       .sort({ [sort]: order })
       .limit(limit)
