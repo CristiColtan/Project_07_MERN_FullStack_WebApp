@@ -31,6 +31,7 @@ function StaysSearch() {
 
   const [loading, setLoading] = useState(false);
   const [listings, setListings] = useState([]);
+  const [showMore, setShowMore] = useState(false);
 
   console.log(sideBarData);
   console.log(listings);
@@ -71,6 +72,7 @@ function StaysSearch() {
 
     const fetchListings = async () => {
       setLoading(true);
+      setShowMore(false);
 
       const searchQuery = urlParams.toString();
       const res = await fetch(
@@ -78,6 +80,13 @@ function StaysSearch() {
       );
 
       const data = await res.json();
+
+      if (data.length > 8) {
+        setShowMore(true);
+      } else {
+        setShowMore(false);
+      }
+
       setListings(data);
       setLoading(false);
     };
@@ -141,6 +150,26 @@ function StaysSearch() {
 
     const searchQuery = urlParams.toString();
     navigate(`/search?${searchQuery}`);
+  };
+
+  const onShowMoreClick = async () => {
+    const numberOfListings = listings.length;
+    const startIndex = numberOfListings;
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.set("startIndex", startIndex);
+    const searchQuery = urlParams.toString();
+
+    const res = await fetch(
+      `http://localhost:8081/backend/listing/get?${searchQuery}`
+    );
+
+    const data = await res.json();
+
+    if (data.length < 9) {
+      setShowMore(false);
+    }
+
+    setListings([...listings, ...data]);
   };
 
   return (
@@ -376,6 +405,11 @@ function StaysSearch() {
                   <br></br>
                 </>
               ))}
+            {showMore && (
+              <Button onClick={onShowMoreClick} variant="success">
+                Show more
+              </Button>
+            )}
           </Col>
         </Row>
       </div>
