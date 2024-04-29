@@ -26,6 +26,8 @@ import MyListings from "./pages/MyListings";
 import EditListing from "./pages/EditListing";
 import Listing from "./pages/Listing";
 import AdminPrivateRoute from "./components/AdminPrivateRoute";
+import AdminListings from "./pages/AdminListings";
+import AdminUsers from "./pages/AdminUsers";
 
 function App() {
   return (
@@ -57,8 +59,8 @@ function App() {
             <Route path="/edit-listing/:listingID" element={<EditListing />} />
           </Route>
           <Route element={<AdminPrivateRoute />}>
-            <Route path="/admin-users" />
-            <Route path="/admin-properties" />
+            <Route path="/admin-users" element={<AdminUsers />} />
+            <Route path="/admin-properties" element={<AdminListings />} />
             <Route path="/admin-rentals" />
             <Route path="/admin-bookings" />
           </Route>
