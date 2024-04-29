@@ -45,6 +45,10 @@ const UserSchema = new mongoose.Schema(
       default:
         "https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-Clipart.png",
     },
+    isadmin: {
+      type: String,
+      default: "No",
+    },
   },
   {
     timestamps: true,

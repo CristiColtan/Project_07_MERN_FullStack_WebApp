@@ -331,6 +331,11 @@ function Profile() {
                     <Nav.Item>
                       <Nav.Link eventKey="5.7">Other travelers</Nav.Link>
                     </Nav.Item>
+                    {currentUser.isadmin === "Yes" && (
+                      <Nav.Item>
+                        <Nav.Link eventKey="5.8">Admin Panel</Nav.Link>
+                      </Nav.Item>
+                    )}
                   </Nav>
                 </Col>
                 <Col sm={9}>
@@ -708,6 +713,55 @@ function Profile() {
                             <Col></Col>
                             <Col xs={3} className="column-3-style">
                               <Button disabled>+ Add new traveler</Button>
+                            </Col>
+                          </Row>
+                        </ListGroup.Item>
+                      </ListGroup>
+                    </Tab.Pane>{" "}
+                    <Tab.Pane eventKey="5.8">
+                      <ListGroup variant="flush">
+                        <ListGroup.Item>
+                          <h3>Admin Panel</h3>
+                        </ListGroup.Item>
+                        <ListGroup.Item>
+                          <Row>
+                            <Col xs={3}>Manage users</Col>
+                            <Col></Col>
+                            <Col xs={3} className="column-3-style">
+                              <Button href="/admin-users">Users page</Button>
+                            </Col>
+                          </Row>
+                        </ListGroup.Item>
+                        <ListGroup.Item>
+                          <Row>
+                            <Col xs={3}>Manage properties</Col>
+                            <Col></Col>
+                            <Col xs={3} className="column-3-style">
+                              <Button href="/admin-properties">
+                                Properties page
+                              </Button>
+                            </Col>
+                          </Row>
+                        </ListGroup.Item>
+                        <ListGroup.Item>
+                          <Row>
+                            <Col xs={3}>Manage rentals</Col>
+                            <Col></Col>
+                            <Col xs={3} className="column-3-style">
+                              <Button href="/admin-rentals">
+                                Rentals page
+                              </Button>
+                            </Col>
+                          </Row>
+                        </ListGroup.Item>
+                        <ListGroup.Item>
+                          <Row>
+                            <Col xs={3}>Manage bookings</Col>
+                            <Col></Col>
+                            <Col xs={3} className="column-3-style">
+                              <Button href="/admin-bookings">
+                                Bookings page
+                              </Button>
                             </Col>
                           </Row>
                         </ListGroup.Item>

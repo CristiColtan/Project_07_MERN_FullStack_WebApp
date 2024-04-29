@@ -7,7 +7,13 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Offcanvas from "react-bootstrap/Offcanvas";
 
-import { FaHome, FaPlane, FaShieldAlt, FaEllipsisH } from "react-icons/fa";
+import {
+  FaHome,
+  FaPlane,
+  FaShieldAlt,
+  FaEllipsisH,
+  FaCar,
+} from "react-icons/fa";
 
 import Bed from "../images/bed.png";
 import Plane from "../images/plane.png";
@@ -28,7 +34,7 @@ function HeaderLow() {
           <Navbar className="bg-body-tertiary navbars rounded-pill">
             <Container className="d-flex justify-content-between w-100">
               <Navbar.Brand href="#home" className="mr-auto">
-                {<FaPlane />} Flights
+                {<FaCar />} Rentals
               </Navbar.Brand>
             </Container>
           </Navbar>

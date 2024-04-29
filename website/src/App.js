@@ -25,6 +25,7 @@ import CreateListing from "./pages/CreateListing";
 import MyListings from "./pages/MyListings";
 import EditListing from "./pages/EditListing";
 import Listing from "./pages/Listing";
+import AdminPrivateRoute from "./components/AdminPrivateRoute";
 
 function App() {
   return (
@@ -37,7 +38,7 @@ function App() {
             element={
               <>
                 <HeaderLow />
-                <Home />
+                {/*<Home />*/}
                 <Body />
                 <Footer />
               </>
@@ -54,6 +55,12 @@ function App() {
             <Route path="/create-listing" element={<CreateListing />} />
             <Route path="/my-listings" element={<MyListings />} />
             <Route path="/edit-listing/:listingID" element={<EditListing />} />
+          </Route>
+          <Route element={<AdminPrivateRoute />}>
+            <Route path="/admin-users" />
+            <Route path="/admin-properties" />
+            <Route path="/admin-rentals" />
+            <Route path="/admin-bookings" />
           </Route>
         </Routes>
       </BrowserRouter>
