@@ -66,6 +66,23 @@ export const getListing = async (req, res, next) => {
   }
 };
 
+export const getMostBookedListing = async (req, res, next) => {
+  try {
+    const listing = await Listing.aggregate([
+      {
+        $sort: { reviews: -1 },
+      },
+      {
+        $limit: 1,
+      },
+    ]);
+
+    res.status(200).json(listing[0]);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const getListings = async (req, res, next) => {
   try {
     const limit = parseInt(req.query.limit) || 9;

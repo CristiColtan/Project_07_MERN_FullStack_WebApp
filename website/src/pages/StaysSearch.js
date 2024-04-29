@@ -32,9 +32,11 @@ function StaysSearch() {
   const [loading, setLoading] = useState(false);
   const [listings, setListings] = useState([]);
   const [showMore, setShowMore] = useState(false);
+  const [mostBooked, setMostBooked] = useState({});
 
   console.log(sideBarData);
   console.log(listings);
+  console.log(mostBooked);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -171,6 +173,19 @@ function StaysSearch() {
 
     setListings([...listings, ...data]);
   };
+
+  useEffect(() => {
+    const fetchMostBookedListing = async () => {
+      const res = await fetch(
+        `http://localhost:8081/backend/listing/getMostBooked`
+      );
+
+      const data = await res.json();
+      setMostBooked(data);
+    };
+
+    fetchMostBookedListing();
+  }, []);
 
   return (
     <div className="main-stays-search-page">
@@ -363,10 +378,10 @@ function StaysSearch() {
                                 {listing.additional_description}
                               </span>
                               <br></br>
-                              <p></p>
-                              <p style={{ fontSize: "0.9em" }}>
+                              <br></br>
+                              <span style={{ fontSize: "0.9em" }}>
                                 {listing.description}
-                              </p>
+                              </span>
                             </Card.Text>
                           </Col>
                           <Col xs={3}>
@@ -402,7 +417,7 @@ function StaysSearch() {
                       </div>
                     </Card.Body>
                   </Card>
-                  <br></br>
+                  <div className="card-spacing"></div>
                 </>
               ))}
             {showMore && (
@@ -410,6 +425,74 @@ function StaysSearch() {
                 Show more
               </Button>
             )}
+            <br></br>
+            <br></br>
+            <h4>Most booked property</h4>
+            <Card>
+              <Card.Body style={{ display: "flex" }}>
+                <div className="my-card-body">
+                  <Link to={`/listing/${mostBooked._id}`}>
+                    <Card.Img
+                      className="my-card-image"
+                      variant="top"
+                      src={mostBooked.imageUrls?.[0]}
+                    />
+                  </Link>
+                </div>
+                <div>
+                  <Row>
+                    <Col>
+                      <Link
+                        to={`/listing/${mostBooked._id}`}
+                        style={{ textDecoration: "none" }}
+                      >
+                        <Card.Title>{mostBooked.name}</Card.Title>
+                      </Link>
+                      <Card.Text>
+                        <span className="my-card-text">
+                          {mostBooked.location} /{" "}
+                          {mostBooked.additional_description}
+                        </span>
+                        <br></br>
+                        <br></br>
+                        <span style={{ fontSize: "0.9em" }}>
+                          {mostBooked.description}
+                        </span>
+                      </Card.Text>
+                    </Col>
+                    <Col xs={3}>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        <Col>
+                          {mostBooked.mark}
+                          <br></br>
+                          <span style={{ fontSize: "smaller" }}>
+                            {mostBooked.reviews} *reviews
+                          </span>
+                        </Col>
+                        <Col>
+                          <span className="my-rating-search">
+                            {mostBooked.rating}
+                          </span>
+                        </Col>
+                      </div>
+                      <br></br>
+
+                      <Button
+                        href={`/listing/${mostBooked._id}`}
+                        variant="primary"
+                      >
+                        Details
+                      </Button>
+                    </Col>
+                  </Row>
+                </div>
+              </Card.Body>
+            </Card>
           </Col>
         </Row>
       </div>
