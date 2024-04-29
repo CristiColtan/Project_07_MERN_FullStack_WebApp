@@ -765,6 +765,15 @@ function Profile() {
                             </Col>
                           </Row>
                         </ListGroup.Item>
+                        <ListGroup.Item>
+                          <Row>
+                            <Col xs={3}>Create rental</Col>
+                            <Col></Col>
+                            <Col xs={3} className="column-3-style">
+                              <Button href="/create-rental">Create</Button>
+                            </Col>
+                          </Row>
+                        </ListGroup.Item>
                       </ListGroup>
                     </Tab.Pane>{" "}
                   </Tab.Content>

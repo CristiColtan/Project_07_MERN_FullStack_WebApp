@@ -28,6 +28,8 @@ import Listing from "./pages/Listing";
 import AdminPrivateRoute from "./components/AdminPrivateRoute";
 import AdminListings from "./pages/AdminListings";
 import AdminUsers from "./pages/AdminUsers";
+import CarRentals from "./pages/CarRentals";
+import CreateRental from "./pages/CreateRental";
 
 function App() {
   return (
@@ -46,6 +48,7 @@ function App() {
               </>
             }
           />
+          <Route path="/rentals" element={<CarRentals />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/property" element={<Property />} />
@@ -63,6 +66,7 @@ function App() {
             <Route path="/admin-properties" element={<AdminListings />} />
             <Route path="/admin-rentals" />
             <Route path="/admin-bookings" />
+            <Route path="/create-rental" element={<CreateRental />} />
           </Route>
         </Routes>
       </BrowserRouter>

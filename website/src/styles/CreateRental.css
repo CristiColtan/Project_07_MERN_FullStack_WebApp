@@ -1,0 +1,39 @@
+.main-create-rental {
+    padding-left: 18%;
+    padding-right: 18%;
+}
+
+.my-input {
+    border-radius: 10px;
+}
+
+.my-input-div {
+    display: flex;
+    align-items: center;
+    vertical-align: middle;
+    justify-content: center;
+    gap: 10px;
+
+}
+
+.my-big-div {
+    margin-top: 10px;
+    display: flex;
+    gap: 20px;
+}
+
+.my-listing-img {
+    width: 10rem;
+    height: 10rem;
+    object-fit: contain;
+    border-radius: 0.5rem;
+
+}
+
+.my-listing-img-div {
+    border: 1px solid lightgray;
+    border-radius: 0.5rem;
+    display: flexbox;
+    justify-items: center;
+
+}

@@ -1,0 +1,70 @@
+.main-stays-search-page {
+    padding-top: 3%;
+    padding-left: 18%;
+    padding-right: 18%;
+}
+
+.map-container {
+    min-width: 200px;
+    min-height: 150px;
+    background-image: url("../images2/LocalMap.png");
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5%;
+    border: 1px solid black;
+}
+
+.map-pin {
+    width: 30px;
+    height: 30px;
+}
+
+.spaced-column {
+    margin-right: 20px;
+}
+
+.my-card-body {
+    margin-right: 20px;
+}
+
+.my-card-text {
+    font-size: small;
+}
+
+.my-card-image {
+    border-radius: 5%;
+    border: 1px solid black;
+    height: 200px;
+    width: 250px;
+
+    transition: transform 0.3s ease;
+}
+
+.my-card-image:hover {
+    transform: scale(1.02);
+}
+
+.loading-p-search {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+}
+
+.my-rating-search {
+    width: 30px;
+    height: 30px;
+    line-height: normal;
+    border-radius: 30%;
+    font-size: 19px;
+    color: #fff;
+    text-align: center;
+    background: #099000;
+
+    margin-left: 10px;
+}
+
+.card-spacing {
+    margin-bottom: 10px;
+}

@@ -33,7 +33,7 @@ function HeaderLow() {
           </Navbar>
           <Navbar className="bg-body-tertiary navbars rounded-pill">
             <Container className="d-flex justify-content-between w-100">
-              <Navbar.Brand href="#home" className="mr-auto">
+              <Navbar.Brand href="/rentals" className="mr-auto">
                 {<FaCar />} Rentals
               </Navbar.Brand>
             </Container>
