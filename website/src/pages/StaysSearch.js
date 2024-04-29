@@ -5,12 +5,13 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
+import Spinner from "react-bootstrap/Spinner";
 
 import { FaMapMarkerAlt } from "react-icons/fa";
 
 import WorldMap from "../images2/WorldMap.png";
 
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import "../styles/StaysSearch.css";
 
@@ -294,37 +295,87 @@ function StaysSearch() {
             </Form>
           </Col>
           <Col>
-            <h4>Bucharest: 1,876 properties found</h4>
+            <h4>{listings.length} properties found</h4>
 
-            <Card>
-              <Card.Body style={{ display: "flex" }}>
-                <div className="my-card-body">
-                  <Card.Img
-                    className="my-card-image"
-                    variant="top"
-                    src={WorldMap}
-                  />
-                </div>
-                <div>
-                  <Row>
-                    <Col>
-                      <Card.Title>Card Title</Card.Title>
-                      <Card.Text>
-                        <span className="my-card-text">
-                          Brasov / 1.8km from Center
-                        </span>
-                        <br></br>
-                        Some quick example text to build on the card title and
-                        make up the bulk of the card's content.
-                      </Card.Text>
-                    </Col>
-                    <Col xs={3}>
-                      <Button variant="primary">Details</Button>
-                    </Col>
-                  </Row>
-                </div>
-              </Card.Body>
-            </Card>
+            {loading && (
+              <div className="loading-p-search">
+                <Spinner animation="border" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </Spinner>
+              </div>
+            )}
+            {!loading &&
+              listings &&
+              listings.map((listing) => (
+                <>
+                  <Card key={listing._id}>
+                    <Card.Body style={{ display: "flex" }}>
+                      <div className="my-card-body">
+                        <Link to={`/listing/${listing._id}`}>
+                          <Card.Img
+                            className="my-card-image"
+                            variant="top"
+                            src={listing.imageUrls[0]}
+                          />
+                        </Link>
+                      </div>
+                      <div>
+                        <Row>
+                          <Col>
+                            <Link
+                              to={`/listing/${listing._id}`}
+                              style={{ textDecoration: "none" }}
+                            >
+                              <Card.Title>{listing.name}</Card.Title>
+                            </Link>
+                            <Card.Text>
+                              <span className="my-card-text">
+                                {listing.location} /{" "}
+                                {listing.additional_description}
+                              </span>
+                              <br></br>
+                              <p></p>
+                              <p style={{ fontSize: "0.9em" }}>
+                                {listing.description}
+                              </p>
+                            </Card.Text>
+                          </Col>
+                          <Col xs={3}>
+                            <div
+                              style={{
+                                display: "flex",
+                                justifyContent: "space-between",
+                              }}
+                            >
+                              <Col>
+                                {listing.mark}
+                                <br></br>
+                                <span style={{ fontSize: "smaller" }}>
+                                  {listing.reviews} *reviews
+                                </span>
+                              </Col>
+                              <Col>
+                                <span className="my-rating-search">
+                                  {listing.rating}
+                                </span>
+                              </Col>
+                            </div>
+                            <br></br>
+
+                            <Button
+                              href={`/listing/${listing._id}`}
+                              variant="primary"
+                            >
+                              Details
+                            </Button>
+                          </Col>
+                        </Row>
+                      </div>
+                    </Card.Body>
+                  </Card>
+                  <br></br>
+                </>
+              ))}
           </Col>
         </Row>
       </div>

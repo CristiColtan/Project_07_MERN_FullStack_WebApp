@@ -37,4 +37,30 @@
     border: 1px solid black;
     height: 200px;
     width: 250px;
+
+    transition: transform 0.3s ease;
+}
+
+.my-card-image:hover {
+    transform: scale(1.02);
+}
+
+.loading-p-search {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+}
+
+.my-rating-search {
+    width: 30px;
+    height: 30px;
+    line-height: normal;
+    border-radius: 30%;
+    font-size: 19px;
+    color: #fff;
+    text-align: center;
+    background: #099000;
+
+    margin-left: 10px;
 }
