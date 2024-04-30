@@ -1,6 +1,7 @@
 import { errorHandler } from "../utils/error.js";
 import Listing from "../models/listing.model.js";
 import User from "../models/user.model.js";
+import Rental from "../models/rental.model.js";
 
 export const getProperties = async (req, res, next) => {
   try {
@@ -15,6 +16,24 @@ export const getUsers = async (req, res, next) => {
   try {
     const users = await User.find({ isadmin: { $ne: "Yes" } });
     res.status(200).json(users);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getRentals = async (req, res, next) => {
+  try {
+    const rentals = await Rental.find();
+    res.status(200).json(rentals);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const deleteRentalAdmin = async (req, res, next) => {
+  try {
+    await Rental.findByIdAndDelete(req.params.id);
+    res.status(200).json("Rental has been deleted!");
   } catch (error) {
     next(error);
   }

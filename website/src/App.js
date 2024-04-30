@@ -27,6 +27,7 @@ import EditListing from "./pages/EditListing";
 import Listing from "./pages/Listing";
 import AdminPrivateRoute from "./components/AdminPrivateRoute";
 import AdminListings from "./pages/AdminListings";
+import AdminRentals from "./pages/AdminRentals";
 import AdminUsers from "./pages/AdminUsers";
 import CarRentals from "./pages/CarRentals";
 import CreateRental from "./pages/CreateRental";
@@ -64,7 +65,7 @@ function App() {
           <Route element={<AdminPrivateRoute />}>
             <Route path="/admin-users" element={<AdminUsers />} />
             <Route path="/admin-properties" element={<AdminListings />} />
-            <Route path="/admin-rentals" />
+            <Route path="/admin-rentals" element={<AdminRentals />} />
             <Route path="/admin-bookings" />
             <Route path="/create-rental" element={<CreateRental />} />
           </Route>
