@@ -169,9 +169,25 @@ function Profile() {
   const [formData, setFormData] = useState({});
   const dispatch = useDispatch();
 
+  const [userBookings, setUserBookings] = useState([]);
+  const handleShowBookings = async () => {
+    try {
+      const res = await fetch(
+        `http://localhost:8081/backend/user/bookings/${currentUser._id}`,
+        {
+          credentials: "include",
+        }
+      );
+
+      const data = await res.json();
+      setUserBookings(data);
+    } catch (error) {}
+  };
+
   console.log(filePercentage);
   console.log(file);
   console.log(formData);
+  console.log(userBookings);
 
   useEffect(() => {
     if (showMessage) {
@@ -188,6 +204,10 @@ function Profile() {
       handleFileUpload(file);
     }
   }, [file]);
+
+  useEffect(() => {
+    handleShowBookings();
+  }, []);
 
   const handleFileUpload = (file) => {
     const storage = getStorage(app);
@@ -285,6 +305,30 @@ function Profile() {
     }
   };
 
+  const handleDeleteBooking = async (bookingID) => {
+    try {
+      const res = await fetch(
+        `http://localhost:8081/backend/booking/delete/${bookingID}`,
+        {
+          method: "DELETE",
+          credentials: "include",
+        }
+      );
+
+      const data = await res.json();
+      if (data.success === false) {
+        console.log(data.message);
+        return;
+      }
+
+      setUserBookings((prev) =>
+        prev.filter((booking) => booking._id !== bookingID)
+      );
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <div className="main-profile">
       <div>
@@ -330,6 +374,9 @@ function Profile() {
                     </Nav.Item>
                     <Nav.Item>
                       <Nav.Link eventKey="5.7">Other travelers</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                      <Nav.Link eventKey="5.9">My bookings</Nav.Link>
                     </Nav.Item>
                     {currentUser.isadmin === "Yes" && (
                       <Nav.Item>
@@ -774,6 +821,35 @@ function Profile() {
                             </Col>
                           </Row>
                         </ListGroup.Item>
+                      </ListGroup>
+                    </Tab.Pane>{" "}
+                    <Tab.Pane eventKey="5.9">
+                      <ListGroup variant="flush">
+                        <ListGroup.Item>
+                          <h3>Bookings list</h3>
+                          Add or edit info about the people you're traveling
+                          with.
+                        </ListGroup.Item>
+                        {userBookings &&
+                          userBookings.length > 0 &&
+                          userBookings.map((booking) => (
+                            <ListGroup.Item key={booking._id}>
+                              <Row>
+                                <Col>{booking._id}</Col>
+                                <Col xs={3}>{booking.hotelName}</Col>
+                                <Col xs={3} className="column-3-style">
+                                  <Button
+                                    variant="danger"
+                                    onClick={() =>
+                                      handleDeleteBooking(booking._id)
+                                    }
+                                  >
+                                    Cancel
+                                  </Button>
+                                </Col>
+                              </Row>
+                            </ListGroup.Item>
+                          ))}
                       </ListGroup>
                     </Tab.Pane>{" "}
                   </Tab.Content>

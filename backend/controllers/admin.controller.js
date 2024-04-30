@@ -2,6 +2,7 @@ import { errorHandler } from "../utils/error.js";
 import Listing from "../models/listing.model.js";
 import User from "../models/user.model.js";
 import Rental from "../models/rental.model.js";
+import Booking from "../models/booking.model.js";
 
 export const getProperties = async (req, res, next) => {
   try {
@@ -30,10 +31,28 @@ export const getRentals = async (req, res, next) => {
   }
 };
 
+export const getBookings = async (req, res, next) => {
+  try {
+    const bookings = await Booking.find();
+    res.status(200).json(bookings);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const deleteRentalAdmin = async (req, res, next) => {
   try {
     await Rental.findByIdAndDelete(req.params.id);
     res.status(200).json("Rental has been deleted!");
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const deleteBookingAdmin = async (req, res, next) => {
+  try {
+    await Booking.findByIdAndDelete(req.params.id);
+    res.status(200).json("Booking has been deleted!");
   } catch (error) {
     next(error);
   }

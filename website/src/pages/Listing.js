@@ -7,6 +7,13 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Spinner from "react-bootstrap/Spinner";
+import Modal from "react-bootstrap/Modal";
+
+import dayjs from "dayjs";
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 import {
   FaMapMarkerAlt,
@@ -15,8 +22,11 @@ import {
   FaParking,
   FaWifi,
 } from "react-icons/fa";
+import { BsHandThumbsDown, BsHandThumbsUp } from "react-icons/bs";
 
+import { useSelector } from "react-redux";
 import Carousel from "react-bootstrap/Carousel";
+import { useNavigate } from "react-router-dom";
 
 import WorldMap from "../images2/WorldMap.png";
 
@@ -24,9 +34,29 @@ import "../styles/Listing.css";
 
 export default function Listing() {
   const params = useParams();
+  const navigate = useNavigate();
   const [listing, setListing] = useState({});
   const [loading, setLoading] = useState(false);
+  const [loadingB, setLoadingB] = useState(false);
+  const [errorB, setErrorB] = useState(false);
   const [error, setError] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [value, setValue] = React.useState(dayjs("2022-04-17"));
+
+  const { currentUser } = useSelector((state) => state.user);
+  const [formData, setFormData] = useState({
+    userRef: currentUser._id,
+    hotelName: "",
+    reservationDate: value.toDate(),
+  });
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
+  const handleShowModal = () => {
+    setShowModal(true);
+  };
 
   useEffect(() => {
     const fetchListing = async () => {
@@ -56,6 +86,46 @@ export default function Listing() {
     fetchListing();
   }, [params.listingID]);
 
+  console.log(value);
+
+  const handleChange = (newValue) => {
+    setFormData({ ...formData, reservationDate: newValue.toDate() });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      setErrorB(false);
+      setLoadingB(false);
+
+      const res = await fetch("http://localhost:8081/backend/booking/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          ...formData,
+          hotelName: listing.name,
+          reservationDate: value.toDate(),
+        }),
+      });
+
+      const data = await res.json();
+      console.log(data);
+      setLoadingB(false);
+      if (data.success === false) {
+        setErrorB(data.message);
+      }
+      navigate(`/profile`);
+    } catch (error) {
+      setErrorB(error.message);
+      setLoadingB(false);
+    }
+  };
+
+  console.log(formData);
   return (
     <div className="main-my-listing">
       {loading && (
@@ -125,11 +195,47 @@ export default function Listing() {
             <Col className="book-btn">
               Property of: {listing.userRef}
               <br></br>
-              <Button>Book</Button>
+              <Button onClick={() => handleShowModal()}>Book</Button>
             </Col>
           </Row>
         </div>
       )}
+      <Modal
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+        show={showModal}
+        onHide={handleCloseModal}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Select the date for your reservation</Modal.Title>
+        </Modal.Header>
+        <Modal.Body
+          style={{
+            paddingLeft: "35%",
+          }}
+        >
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DemoContainer components={["DatePicker"]}>
+              <DatePicker
+                label="Select a date"
+                value={value}
+                onChange={(newValue) => {
+                  setValue(dayjs(newValue));
+                }}
+              />
+            </DemoContainer>
+          </LocalizationProvider>
+          <br></br>
+          <p>
+            Thanks! We will contact you after!<br></br>
+            {<BsHandThumbsUp />}
+            {<BsHandThumbsDown />}
+          </p>
+          <br></br>
+          <Button onClick={handleSubmit}>Book visit</Button>
+        </Modal.Body>
+      </Modal>
     </div>
   );
 }

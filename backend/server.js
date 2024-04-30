@@ -7,6 +7,7 @@ import AuthRouter from "./routes/auth.route.js";
 import ListRouter from "./routes/listing.route.js";
 import AdminRouter from "./routes/admin.route.js";
 import RentalRouter from "./routes/rental.route.js";
+import BookingRouter from "./routes/booking.route.js";
 import cookieParser from "cookie-parser";
 
 dotenv.config();
@@ -39,6 +40,7 @@ app.use("/backend/auth", AuthRouter);
 app.use("/backend/listing", ListRouter);
 app.use("/backend/admin", AdminRouter);
 app.use("/backend/rental", RentalRouter);
+app.use("/backend/booking", BookingRouter);
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;

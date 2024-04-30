@@ -8,7 +8,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 //components
 import Header from "./components/Header";
-import Home from "./pages/Home";
 
 import Body from "./pages/Body";
 import Footer from "./components/Footer";
@@ -29,6 +28,7 @@ import AdminPrivateRoute from "./components/AdminPrivateRoute";
 import AdminListings from "./pages/AdminListings";
 import AdminRentals from "./pages/AdminRentals";
 import AdminUsers from "./pages/AdminUsers";
+import AdminBookings from "./pages/AdminBookings";
 import CarRentals from "./pages/CarRentals";
 import CreateRental from "./pages/CreateRental";
 
@@ -43,7 +43,6 @@ function App() {
             element={
               <>
                 <HeaderLow />
-                {/*<Home />*/}
                 <Body />
                 <Footer />
               </>
@@ -66,7 +65,7 @@ function App() {
             <Route path="/admin-users" element={<AdminUsers />} />
             <Route path="/admin-properties" element={<AdminListings />} />
             <Route path="/admin-rentals" element={<AdminRentals />} />
-            <Route path="/admin-bookings" />
+            <Route path="/admin-bookings" element={<AdminBookings />} />
             <Route path="/create-rental" element={<CreateRental />} />
           </Route>
         </Routes>
