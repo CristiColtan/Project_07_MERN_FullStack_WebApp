@@ -41,7 +41,7 @@ export default function Listing() {
   const [errorB, setErrorB] = useState(false);
   const [error, setError] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [value, setValue] = React.useState(dayjs("2022-04-17"));
+  const [value, setValue] = React.useState(dayjs("2024-04-25"));
 
   const { currentUser } = useSelector((state) => state.user);
   const [formData, setFormData] = useState({
@@ -108,7 +108,7 @@ export default function Listing() {
         body: JSON.stringify({
           ...formData,
           hotelName: listing.name,
-          reservationDate: value.toDate(),
+          reservationDate: value,
         }),
       });
 
@@ -117,8 +117,9 @@ export default function Listing() {
       setLoadingB(false);
       if (data.success === false) {
         setErrorB(data.message);
+      } else {
+        navigate(`/profile`);
       }
-      navigate(`/profile`);
     } catch (error) {
       setErrorB(error.message);
       setLoadingB(false);
@@ -200,6 +201,7 @@ export default function Listing() {
           </Row>
         </div>
       )}
+      {errorB && <p style={{ color: "red" }}>{errorB}</p>}
       <Modal
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"

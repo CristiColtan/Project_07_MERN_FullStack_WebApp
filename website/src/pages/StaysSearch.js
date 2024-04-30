@@ -427,7 +427,7 @@ function StaysSearch() {
             )}
             <br></br>
             <br></br>
-            <h4>Most booked property</h4>
+            <h4>Most reviewed property</h4>
             <Card>
               <Card.Body style={{ display: "flex" }}>
                 <div className="my-card-body">

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import Button from "react-bootstrap/Button";
+import dayjs from "dayjs";
 
 import "../styles/AdminBookings.css";
 
@@ -66,14 +67,21 @@ export default function AdminBookings() {
                     <p className="card-text">Client: {booking.userRef}</p>
                     <p className="card-text">{booking.hotelName}</p>
 
-                    <p className="card-text">{booking.reservationDate}</p>
+                    <p className="card-text">
+                      {booking.reservationDate} -
+                      {dayjs().isAfter(booking.reservationDate)
+                        ? "Expired"
+                        : "Active"}
+                    </p>
                   </div>
                   <div className="my-cta-section">
                     <Button
                       onClick={() => handleDeleteAdminBookings(booking._id)}
                       variant="danger"
                     >
-                      Delete
+                      {dayjs().isAfter(booking.reservationDate)
+                        ? "Delete from History"
+                        : "Cancel booking"}
                     </Button>
                   </div>
                 </div>

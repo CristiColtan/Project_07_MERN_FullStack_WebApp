@@ -158,6 +158,7 @@ export default function CarRentals() {
             For renting this car please contact us at: rentacar@yahoo.com with
             your phone number and we will reach you!
             <br></br>
+            <br></br>
             <p>
               Was this information helpful?<br></br>
               {<BsHandThumbsUp />}

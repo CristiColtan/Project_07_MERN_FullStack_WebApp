@@ -9,6 +9,8 @@ import Row from "react-bootstrap/Row";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 
+import dayjs from "dayjs";
+
 import ListGroup from "react-bootstrap/ListGroup";
 
 import { FiSettings } from "react-icons/fi";
@@ -835,8 +837,18 @@ function Profile() {
                           userBookings.map((booking) => (
                             <ListGroup.Item key={booking._id}>
                               <Row>
-                                <Col>{booking._id}</Col>
-                                <Col xs={3}>{booking.hotelName}</Col>
+                                <Col>
+                                  {booking._id}
+                                  <br></br>
+                                  {dayjs().isAfter(booking.reservationDate)
+                                    ? "Expired"
+                                    : "Active"}
+                                </Col>
+                                <Col>
+                                  {booking.hotelName}
+                                  <br></br>
+                                  {booking.reservationDate}
+                                </Col>
                                 <Col xs={3} className="column-3-style">
                                   <Button
                                     variant="danger"
@@ -844,7 +856,9 @@ function Profile() {
                                       handleDeleteBooking(booking._id)
                                     }
                                   >
-                                    Cancel
+                                    {dayjs().isAfter(booking.reservationDate)
+                                      ? "Delete from History"
+                                      : "Cancel"}
                                   </Button>
                                 </Col>
                               </Row>
