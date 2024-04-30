@@ -4,26 +4,17 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import Form from "react-bootstrap/Form";
 import Spinner from "react-bootstrap/Spinner";
 import Modal from "react-bootstrap/Modal";
 
 import {
   FaMapMarkerAlt,
-  FaChair,
   FaSuitcase,
   FaSuitcaseRolling,
-  FaCarAlt,
   FaPersonBooth,
   FaCarBattery,
-  FaCarCrash,
-  FaMobileAlt,
   FaFileImport,
 } from "react-icons/fa";
-
-import WorldMap from "../images2/WorldMap.png";
-
-import { Link, useNavigate } from "react-router-dom";
 
 import "../styles/CarRentals.css";
 import { BsHandThumbsDown, BsHandThumbsUp } from "react-icons/bs";
